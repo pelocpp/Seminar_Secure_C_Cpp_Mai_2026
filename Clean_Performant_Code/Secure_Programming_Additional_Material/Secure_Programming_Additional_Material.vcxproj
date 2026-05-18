@@ -143,11 +143,14 @@
     <ClCompile Include="Auto.cpp" />
     <ClCompile Include="BraceInitialization.cpp" />
     <ClCompile Include="Casts.cpp" />
+    <ClCompile Include="Dummy.cpp" />
     <ClCompile Include="Expected.cpp" />
     <ClCompile Include="GenericFunctions.cpp" />
+    <ClCompile Include="InitializerList.cpp" />
     <ClCompile Include="Lambda.cpp" />
     <ClCompile Include="Optional.cpp" />
     <ClCompile Include="Program.cpp" />
+    <ClCompile Include="RAII_ConceptualExample.cpp" />
     <ClCompile Include="SharedPtr.cpp" />
     <ClCompile Include="StringView.cpp" />
     <ClCompile Include="UniquePtr.cpp" />
@@ -155,6 +158,7 @@
     <ClCompile Include="WeakPtr.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Dummy.h" />
     <ClInclude Include="ScopedTimer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

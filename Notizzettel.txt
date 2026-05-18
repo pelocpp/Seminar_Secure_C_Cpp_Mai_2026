@@ -1,0 +1,9 @@
+// ============================================
+
+Seminar: "Sicherheitsprogrammierung in C/C++"
+
+Trainer: Peter Loos
+
+EMail:   peter.loos@gmx.de
+
+// ============================================
