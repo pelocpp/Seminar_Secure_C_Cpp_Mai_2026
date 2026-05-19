@@ -1,5 +1,4 @@
 // ============================================
-// ============================================
 
 Seminar: "Sicherheitsprogrammierung in C/C++"
 
@@ -8,4 +7,310 @@ Trainer: Peter Loos
 EMail:   peter.loos@gmx.de
 
 // ============================================
+
+Unterlagen:
+
+Original:
+
+https://github.com/pelocpp
+
+https://github.com/pelocpp/cpp_clean_performant_secure
+
+Für diesen Kurs:  Seminar_Secure_C_Cpp_Mai_2026
+
+https://github.com/pelocpp/Seminar_Secure_C_Cpp_Mai_2026
+
 // ============================================
+
+ToDo:
+
+Smart Pointer: Arrays  // geht mit und ohne Deleter // Ab C++20 ohne deleter.
+
+
+
+// =======================================================
+
+
+===> Wohin soll die Reise gehen?
+
+===> Was brauche ich wirklich?
+
+===> Was soll drin sein?
+
+===> Was sind meine Erwartungen?
+
+Sicherheit, Stabilität, sicheren Code  
+
+==> STL ???  std::vector, std::find, std::fill, std::set, std::map 
+
+Multithreading
+
+Performanz
+
+Desktop / Windows
+
+Visual Studio: Address Sanitizer
+
+=======================================================
+
+Undefined Behaviour (UB)
+
+Nicht in anderen Sprachen:  Weil C/C++ so viele Ecken / Kanten (edge cases) ...
+
+new []   : Um ein Array anzulegen
+
+delete:  FALSCH !!!!!!!!!!!!!!!! KEINE FEHLERMELDUNG
+
+int* ptr = new int [100];
+
+func (int* adr)
+{
+    delete adr;
+
+	delete[] adr;
+}
+
+ABER:  Verwende Smart Pointer.
+
+a) Smart Pointer: Arrays
+
+b) std::weak
+
+=======================================================
+
+Integer-Überlauf:
+
+Wie kann man das vermeiden ???
+
+a) Nicht einfach
+
+b) Erster Ansatz: 
+
+   Sind - für diese Variable - von der Erwartung her die Werte groß oder klein.
+
+   klein: nix.
+
+   groß:  Für Addition, Subtraktion als auch Multiplikation:
+
+   Eine Vorabberechung: ist das Ergebnis nochh im Wertebereich drin oder nicht ...  Proaktiv (Addition recht einfach)
+
+   Problem: Wenn nicht 
+
+c) Statt int verwende man eine spezielle Bibliothek:   SafeInt
+
+   Bei Überlauf: Exception
+
+d) Was nehme ich heutzutage für einen ganzzahligen Datentyp ??? 
+
+   int: eher nicht mehr
+
+   Aktuell:
+
+   std::uint32_t
+
+   std::size_t   // Nicht: 16, 32,....
+
+   Pro: std::size_t
+
+   a) Passt von der Größe exakt auf den Akkumulator (Rechenwerk der CPU)
+
+   b) VORSICHT:  Kennt KEINE NEGATIVEN Zahlen !!!!  Ist ein vorzeichen-LOSER Typ
+
+   Klassiker:
+
+   std::size_t n;
+
+   ....
+
+   if (n == -1)   NIEEEEEEEEEEEEEEEEEEEEEEEEEEE !!!
+
+   if (n == 4,294,967,295)   Das steht in der Zeile von oben !!!
+
+   ZB:
+
+   Understanding size_t and Its Implications for Loop Conditions
+
+   https://medium.com/@valentin1679918/understanding-size-t-and-its-implications-for-loop-conditions-in-c-programming-c2e8d3fb0c82
+
+   ================================================================
+
+   Stack:
+
+   Ist von der Konzeption nicht für größere Datenmengen konzipiert !!!
+
+   Er ist für Zwischenergebnisse konzipiert-
+
+   
+        static void stack_demo() {
+
+             int data[400000000];  
+
+        }
+
+		Was wäre vertretbar:  int data[100]; oder maximal 256.  
+
+		   
+        static void stack_demo() {
+
+            //  das stellt kein Problem dar !!!!!!!!!!
+
+			int* data = new int [400000000];
+
+			delete[] data;
+
+
+        }
+
+		Heap: Virtueller Speicher: Kann fast "beliebig" große Anforderungen entgegennehmen.
+
+		Stack: 
+
+
+	Zum Vergleich:
+
+	    void cpp_demo() {
+
+            int a = 1;
+            int b = 2;
+            int c = 3;
+
+        }  
+
+		
+	    def python_demo:
+
+            a = 1
+			b = 2
+			c = 3
+
+	    
+		Java / C#:
+
+		In-between C++ und Python:
+
+		i) Alle elemtaren Variablen liegen am Stack // wie in C++
+
+		ii) Alle Objekte: Liegen am Heap 
+
+		iii) Wie sieht hier der Vergleich zu C++ aus ???
+
+
+		
+		void cpp_demo() {
+
+            int* a = new int(1);
+            int* b = new int(2);
+            int* c = new int(3);   // analog
+
+        }    // wer gibt die Zeiger frei ???????????????????
+		     // C++: Wir  // Python: Garbage Collector
+
+          
+		  Python: a, b, und c sind Referenzen. Die Werte liegen auf dem Heap.
+
+		  Optimierungen:  PyObject, PyFloat, PyInt
+
+		  2. Optimierung: Eine Abschnitt auf dem Heap NUR FÜR INT-VARIABLEN // Fixed-Sized Memory Pools
+
+		  Schönheit: Ein durchgängiger Ansatz: Alles ist ein Objekt   // Laufzeit
+
+
+	======================================================================
+
+	C#: Ausnahme: class // struct :  struct ========> Das Objekt liegt dann am Stack 
+
+	Java: So nicht vorhanden. ALLES ist am Heap
+
+	======================================================================
+
+	Rekursive Funktionen und Secure Code:
+
+	In manchen Style Guides werden rekursive Funktionen in Production Code "verbietet".
+
+	sehr streng: Aber: Ich würde in der Tat bei rekursiven Funktionen, wenn wir sie überhaupt haben, sehr genau hinsehen.
+
+==============================
+
+Die Schwachstelle schreibt Daten über das Ende oder vor den Anfang des vorgesehenen Puffers hinaus.
+
+Wie können wir diesen feststellen ????
+
+Debug-Modus:  Eigenschaften
+
+Shadow Bytes // Schattenbytes: Zum Schutz
+
+Muster:
+
+CC:  Am Stack, nicht verfügbar 
+
+CD:  Am HEAP, nicht vorbelegt.
+
+---------------------
+
+Adress-Arithmetik
+
+In einem begrenzten Umfang kann man Arithmetik mit Adressen durchführen:
+
+i) Inkrement einer Adresse (++)
+
+ii) Einen Offset dazu addieren
+
+
+.... 34 ==> 35
+
+
+Debug-Mode:
+
+Kann / Tut Out-of-bounds Write erkennen.
+Wie: Durch Einfügen von Schattenbytes
+Wann erfolgt eine Meldung: Bei Verlassen des Unterprogramms.
+
+Das ist jetzt granular in Bezug auf eine ganze Methode / Unterprogramm:
+
+Geht es noch genauer: Ja, mit einem weiteren Tool: Address Sanitizer
+
+ // pro Anweisung // Pro Zeile
+
+
+ Warum kann ein delete abstürzen, auch wenn das Argument (Adresse) korrekt ist ???
+
+ Antwort:
+
+ i) Auf dem Heap (malloc, ..) liegt freier oder reservierter Speicher.
+
+ ii) Habe - fälschlicherweise - in Speicher geschrieben, der mir nicht gehört.
+
+ iii) Auf dem Heap liegen aber ZUSÄTZLICH auch Verwaltungsinformationen,
+      die den freien und reservierten Speicher verwalten. Tabellen, was ist frei, was ist nicht frei.
+
+
+ iv) mit einem  - fälschlicherweise - vollzogenen Schreiben in diesen Abschnitten mache ich die 
+     Verwaltungsinformationen kaputt: 
+
+	 Dann kann ein delete - trotz richtigen Arguments - nicht arbeiten.
+
+	v) "Wir" von der Anwendung und "System" (new / delete) arbeiten auf demselben Speicher.
+
+=================
+
+malloc (C)  // new (C++)  => malloc ()
+
+
+strcpy: NICHT Verwenden.   //  ist veraltet ....  C-API
+
+strncpy_s
+
+Verwende std::string
+         std::string_view
+
+		 Das ist C++  API
+
+Siemens: MC  // Simatic // Sinumerik 840D // OPC // OLE for Process Control //
+
+Siemens Technik Akademie Erlangen  // Teacher  // STA
+
+Associate Engineer // Industrietechnologe
+
+
+
+

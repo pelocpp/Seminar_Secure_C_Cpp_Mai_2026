@@ -92,7 +92,17 @@ namespace SecureProgrammingExploitability {
             int intPrimitive = 0;
             short shortPrimitive = 0;
             intPrimitive = INT_MAX;
-            shortPrimitive = intPrimitive;   // Numeric Truncation Error
+
+            if (intPrimitive <= 10000 && intPrimitive >= -10000)
+            {
+                shortPrimitive = intPrimitive;   // habe das überprüft
+            }
+            else
+            {
+                // ???
+            }
+
+            shortPrimitive = intPrimitive;   // Numeric Truncation Error // das tun wir nicht !!!
 
             printf("Integer MAXINT: %d\n", intPrimitive);
             printf("Short   MAXINT: %d\n", shortPrimitive);
@@ -135,6 +145,18 @@ namespace SecureProgrammingExploitability {
         // https://cwe.mitre.org/data/definitions/787.html
         // Out-of-bounds Write
 
+
+        static void stack_demo() {
+
+            int a;
+            int b;
+            int c;
+
+             int data[400000000];  
+        
+        }   // Rücksprungadresse
+
+
         static void call_myself(int depth) {
 
             // int data[50];    // remove comment
@@ -147,6 +169,25 @@ namespace SecureProgrammingExploitability {
 
             call_myself(1);
         }
+
+        static void test_stack_based_buffer_overflow_demo_seminar() {
+
+            int n = 123;
+            int m = 456;
+
+            int* adr = &n;
+
+            adr++;  // Adress-Arithmetik
+
+                    // Beispiel: 0x1024  ==>  (++)   0x
+
+            adr = adr - 1;
+
+            *adr = 999;
+
+        }
+
+
         
         static void test_stack_based_buffer_overflow_02() {
 
@@ -182,10 +223,17 @@ namespace SecureProgrammingExploitability {
 
         static void test_stack_based_buffer_overflow() {
 
-            test_stack_based_buffer_overflow_01();
-            test_stack_based_buffer_overflow_02();
-            test_stack_based_buffer_overflow_03();
-            test_stack_based_buffer_overflow_04();
+            test_stack_based_buffer_overflow_demo_seminar();
+
+            //stack_demo();    // bevor: stack_demo aufgerufen wird: Muss die Rücksprungadresse abgespeichert werden.
+            //stack_demo();
+            //stack_demo();
+
+
+            //test_stack_based_buffer_overflow_01();
+            //test_stack_based_buffer_overflow_02();
+            //test_stack_based_buffer_overflow_03();
+            //test_stack_based_buffer_overflow_04();
         }
     }
 
@@ -196,18 +244,51 @@ namespace SecureProgrammingExploitability {
 
         static void test_heap_based_buffer_overflow_internal(const char* input) {
 
-            char* buffer = new char[32];
+            int len = 33;
+            char* buffer = new char[len] {};
+
+            // Hmmmmmmmmmmmm ... ist LESEND  // Verwaltungsinformation // NICHT DOKUMENTIERT //
+            //                                Liegen in Einheiten von 4 oder 8 Bytes im Speicher
+            
+            int* tmp = (int*) buffer;
+            
+            int x1 = tmp[-1];
+            int x2 = tmp[-2];
+            int x3 = tmp[-3];
+            int x4 = tmp[-4];
+
+            std::println("{}", x1);
+            std::println("{}", x2);
+            std::println("{}", x3);
+            std::println("{}", x4);
+
+
 
             // Heap Buffer Overflow when data is bigger than 32
             strcpy(buffer, input);          // <- Write outside 
             std::println("{}", buffer);
+
+            int x5 = buffer[-4];
 
             delete[] buffer;                // crashes due to outside write of 'strcpy'
         }
 
         static void test_heap_based_buffer_overflow_01() {
 
-            test_heap_based_buffer_overflow_internal("This is way too long for this buffer");
+
+            //const char* s = "This is way too long for this buffer .. buffer !";
+
+            char zeichen[4];
+            zeichen[0] = 'A';
+            zeichen[1] = 'B';
+            zeichen[2] = 'C';
+            zeichen[3] = 0;
+
+            size_t len = strlen(zeichen);
+
+            printf(">>>: %s\n", zeichen);
+
+            test_heap_based_buffer_overflow_internal("This is way too long for this buffer .. buffer !");
         }
 
         static void test_heap_based_buffer_overflow_02() {
@@ -357,10 +438,10 @@ void secure_programming_issues()
 {
     using namespace SecureProgrammingExploitability;
 
-    UnsignedIntegerWraparound::test_unsigned_integer_wraparound();
-    SignedIntegerOverflow::test_signed_integer_overflow();
-    NumericTruncationError::test_numeric_truncation_error();
-    StackBasedBufferOverflow::test_stack_based_buffer_overflow();
+   // UnsignedIntegerWraparound::test_unsigned_integer_wraparound();
+   // SignedIntegerOverflow::test_signed_integer_overflow();
+   //// NumericTruncationError::test_numeric_truncation_error();
+   // StackBasedBufferOverflow::test_stack_based_buffer_overflow();
     HeapBasedBufferOverflow::test_heap_based_buffer_overflow();
     BufferUnderwriteUnderflow::test_buffer_underwrite_underflow();
     UseAfterFree::test_use_after_free();
