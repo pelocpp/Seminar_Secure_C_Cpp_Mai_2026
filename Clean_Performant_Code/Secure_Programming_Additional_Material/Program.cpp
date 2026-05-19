@@ -17,6 +17,8 @@ extern void main_auto();
 extern void main_algorithms();
 extern void main_raii_conceptual_example();
 extern void main_initializer_list();
+extern void main_vector();
+
 
 int main()
 {
@@ -29,12 +31,13 @@ int main()
     //main_lambdas();
     //main_generic_functions();
     //main_expected();
-    //main_casts();
+    // main_casts();
     //main_brace_initialization();
     //main_auto();
     //main_algorithms();
     //main_raii_conceptual_example();
     //main_initializer_list();
+    main_vector();
 
     return 0;
 }

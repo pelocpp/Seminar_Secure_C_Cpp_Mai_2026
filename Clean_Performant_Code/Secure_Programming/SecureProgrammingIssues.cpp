@@ -341,18 +341,34 @@ namespace SecureProgrammingExploitability {
 
         static void test_use_after_free() {
 
-            char* buffer = new char[256];
-            memset(buffer, '!', 256);
+            const int Length = 32;
+
+            char* buffer = new char[Length] {};   // {} bewirkt REPEAT Prefix
+
+           // for (int ...)
+
+            memset(buffer, '!', Length);
+            buffer[Length - 1] = '\0';
+
+            size_t len = strlen(buffer);
 
             bool error = true;
-            if (error)
+            if (error) {
                 delete[] buffer;
+                buffer = nullptr;
+            }
 
             if (error) {
                 // Use after free when error is true
                 // printf("%lu\n", strlen(buffer));
 
-                size_t len = strlen(buffer);   // use after free
+                if (buffer != nullptr) {
+                    size_t len = strlen(buffer);   // use after free
+                }
+                else {
+                    // ??????
+                }
+
             }
         }
     }
@@ -369,12 +385,17 @@ namespace SecureProgrammingExploitability {
             memset(buffer, '!', 256);
 
             bool error = true;
-            if (error)
+            if (error) {
                 delete[] buffer;
+                buffer = nullptr;
+            }
+
 
             // ....
 
-            delete[] buffer; // second free
+            if (buffer != nullptr) {
+                delete[] buffer; // second free
+            }
         }
     }
 
@@ -387,7 +408,7 @@ namespace SecureProgrammingExploitability {
 
             struct A {};
             struct B {};
-
+                
             struct A* a = (struct A*) malloc(sizeof(struct A));
 
             // cast to unrelated type
@@ -441,10 +462,10 @@ void secure_programming_issues()
    // UnsignedIntegerWraparound::test_unsigned_integer_wraparound();
    // SignedIntegerOverflow::test_signed_integer_overflow();
    //// NumericTruncationError::test_numeric_truncation_error();
-   // StackBasedBufferOverflow::test_stack_based_buffer_overflow();
-    HeapBasedBufferOverflow::test_heap_based_buffer_overflow();
-    BufferUnderwriteUnderflow::test_buffer_underwrite_underflow();
-    UseAfterFree::test_use_after_free();
+   //// StackBasedBufferOverflow::test_stack_based_buffer_overflow();
+   // HeapBasedBufferOverflow::test_heap_based_buffer_overflow();
+   // BufferUnderwriteUnderflow::test_buffer_underwrite_underflow();
+  //  UseAfterFree::test_use_after_free();
     DoubleFree::test_double_free();
     IncorrectTypeConversion::test_incorrect_type_conversion();
     UseOfExternalFormatString::test_use_of_external_format_string();

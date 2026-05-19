@@ -4,6 +4,8 @@
 // =====================================================================================
 
 #include <print>
+#include <string>
+#include <string_view>
 
 namespace DiverseCasts {
 
@@ -41,6 +43,8 @@ namespace DiverseCasts {
 #pragma warning(disable : 4244)
 #pragma warning(disable : 4305)
 
+            // Kommentar: Whyyyyyyyyyyyyyyy
+
             // Demotion
             int  a = 10.0;   // warning: possible loss of data
             bool b = 123;    // warning: possible loss of data
@@ -58,16 +62,19 @@ namespace DiverseCasts {
 
         {
             // C-Style-Cast
-            char c = 10;          // 1 byte
-            int* p = (int*) &c;   // 4 bytes, works ?!?
+            //char c = 10;          // 1 byte
+            //int* p = (int*) &c;   // 4 bytes, works ?!?
 
-            // *p = 5;            // run-time error: stack corruption
+            //*p = 5;               // run-time error: stack corruption
         }
 
         {
             // static_cast
-            //char c = 10;                    // 1 byte
-            //int* p = static_cast<int*>(&c); // 4 bytes // compile error
+            char c = 10;                    // 1 byte
+          //  int* p = static_cast<int*>(&c); // 4 bytes // compile error
+          //  int* p2 = reinterpret_cast<int*>(&c); // 4 bytes // compile error
+
+        //    *p2 = 5;
         }
 
         enum class Color { red, green, blue };
@@ -118,7 +125,60 @@ namespace DiverseCasts {
             const int constVar = 123;
             int* nonConstIp = const_cast<int*>(&constVar); // removes const
             *nonConstIp = 10; // potential run-time error
+
+            const char* s = "11111111111111111111111111";  // C-Stilistik
+            char* nonConstCharPtr = const_cast<char*>(s); // removes const
+            //cnonConstCharPtr[0] = '!';
+
+            constexpr char ccc[] = "11111111111111111111111111";    // Übersetzungszeit
+            const char* sss = ccc;  // bridge between compile time (ccc) and runtime (sss)
+
+            std::string_view sv{ "11111111111111111111111111" };  // liegen wo ??? NICHT am HEAP // Leichtgewichtiger, Read-Only Schnappschuss
+                                                                  // Code-Segment // Global Datensegment (Read-Only und Writable)
+            //sv[0] = '!';
+            // 2 Membervariablen: Anfangsadresse:  const char* s  UND Länge !!!
+
+                                                             // Flexible, leistungsfähige String-Realisierung // Heap
+                                                             // Ausnahme: SSO (( kurze Zeichenketten // im Bauch von std::string
+            /*const*/ std::string cs{ "11111111111111111111111111" };  // AM HEAP !!!!!!!!!!!!!
+                                                                   // Performanz
+            cs[0] = '!';
+            cs.insert(3, 3, '?');
         }
+
+        {
+            // std::string_view : Vorsicht
+            // Was ist ein Non-owning Container
+
+            std::string aha{ "Ahaaaaaaaaaaaaaaaaaa" };
+
+            std::string_view svAha { aha };
+
+            std::println("{}", svAha);
+
+            aha.append("Ohooooooooooooooo");
+
+            std::println("{}", svAha);
+        }
+
+
+        {
+            // SSO - Small String Optimization
+
+            //
+
+
+            std::string aha{ "Ahaaaaaaaaaaaaaaaaaa" };
+
+            std::string_view svAha{ aha };
+
+            std::println("{}", svAha);
+
+            aha.append("Ohooooooooooooooo");
+
+            std::println("{}", svAha);
+        }
+
 
         {
             const int constVar = 123;
@@ -135,26 +195,50 @@ namespace DiverseCasts {
         {
         public: 
             virtual void test() { std::println("Base"); }
+
+            bool operator== (const Base& other) {
+                std::println("operator== Base");
+                return this == &other;
+            }
         };
             
         class Derived : public Base
         {
         public:
             void test() override { std::println("Derived"); }
+
+            bool operator== (const Derived& other) {
+                std::println("operator== Derived");
+                return this == &other;
+            }
         };
 
         {
             Derived* child = new Derived();
-            Base* base = dynamic_cast<Base*>(child); // ok
-            base->test();
+            
+            Base* base1 = child; 
+
+            Base* base2 = static_cast<Base*>(child);
+            
+            base1->test();
+            base2->test();
         }
 
         {
             Base* base = new Base();
-            Derived* child = dynamic_cast<Derived*>(base);
+            Derived* child = dynamic_cast<Derived*>(base);  // wird nicht gern gesehen .............
+            // Derived* child = static_cast<Derived*>(base);  // wird nicht gern gesehen .............
+
+            if (*base == *child) {
+                std::println("bin hier");
+            }
 
             if (child == 0) {
                 std::println("Null pointer returned!");
+            }
+            else
+            {
+                base->test();
             }
         }
 

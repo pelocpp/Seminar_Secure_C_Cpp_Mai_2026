@@ -22,6 +22,17 @@ https://github.com/pelocpp/Seminar_Secure_C_Cpp_Mai_2026
 
 // ============================================
 
+Mittwoch + Donnerstag:
+
+Security: Zu Ende // Lösungen
+
+Performanz: Wie sieht Modernes C++ aus ---------- 
+
+Multi-Threading
+
+// ============================================
+
+
 ToDo:
 
 Smart Pointer: Arrays  // geht mit und ohne Deleter // Ab C++20 ohne deleter.
@@ -305,12 +316,121 @@ Verwende std::string
 
 		 Das ist C++  API
 
-Siemens: MC  // Simatic // Sinumerik 840D // OPC // OLE for Process Control //
+========================================================================
 
-Siemens Technik Akademie Erlangen  // Teacher  // STA
+Buffer Underflow
 
-Associate Engineer // Industrietechnologe
+Shadow Bytes auf dem Heap:
+
+CD CD:  Nicht intialisiert  // sollten wir nicht tun
+FD FD:  Bereits freigegeben
+
+                  xor         eax,eax  
+00007FF70F891244  mov         rcx,qword ptr [rbp+168h]  
+00007FF70F89124B  rep stos    byte ptr [rdi]  
+
+rep: Repeat Prefix
+
+========================================================================
+
+Use after Free
+
+Wie kann man das feststellen, ob der Zeiger noch eine gültige Adresse enthält.
+
+besser: eine Adresse mit einer korrekten Reservierung.
+
+i)   nullptr - Prüfung:
+
+    Erfordert Disziplin: Zweimal - beim Rücksetzen und beim Zugriff
+
+ii)  Zusätzliches Flag: 
+    bool isBufferValid;
+    Erfordert Disziplin: Zweimal - beim Rücksetzen und beim Zugriff
+
+iii) Exception: Wenn es denn geht ....
 
 
 
+
+catch (...)
+
+catch (std::exception)
+
+========================================================================
+
+"Double Delete":
+
+Ist bei großen Programmen ein gewisses Problem.
+
+Wo habe ich NIEMALS ein "Double Delete"   ==> Smart Pointer
+
+========================================================================
+
+Wir haben auf Smart Pointer umgestellt:
+
+std::unique oder std::shared ???
+
+Haben wir in diesem Zusammenhang auch std::weak verwendet ????????????
+
+Kurzzeitig: über lock 
+
+=======================================================================
+
+„Incorrect Type Conversion” / „Type Punning”
+
+Was ist das ???
+
+
+Typkonvertierung:
+
+Operator: Cast - Operator
+
+C
+
+C++
+
+Gute Möglichkeiten // schlechte (falsche) Möglichkeiten
+
+Siehe auch
+
+https://github.com/pelocpp/cpp_modern/blob/master/GeneralSnippets/Casts/Casts.md
+
+
+Gleitpunktwerte liegen WIE im Speicher:  Nach welchem Standard: IEEE // Mantisse / Exponent ..
+
+==================================================
+
+const und constexpr sind 2 verschiedene Dinge.
+
+Wann liegen const Variablen in einem Read-Only Memory Bereich ???
+
+a) Konstante Zeichenketten !!!!!!!!!!!!!!!!!!!
+
+==================================================
+
+Stack Buffer Overflow
+Heap Buffer Overflow
+Buffer Underflow
+
+int buffer [Size]
+oder
+malloc (Size)
+
+ABER:
+
+Beides stellt kein Problem dar,wenn der Puffer im Kontext eines STL Conainers sich befindet (std::vector).
+
+==================================================
+
+
+Die Klasse std::vector hat KEINEN internen Puffer für "kleine" Daten !!!
+
+reserve
+
+Man sollte  std::vector  eigentlich IMMER mit reserve verwenden: 
+
+Sollte der Vektor "am Ende" in einem End-Zustand: shrink_to_fit:  Die den Speicher (Heap) exakt anpasst.
+
+
+Neue Kapazität == alte Kapazität * 1.5;
 

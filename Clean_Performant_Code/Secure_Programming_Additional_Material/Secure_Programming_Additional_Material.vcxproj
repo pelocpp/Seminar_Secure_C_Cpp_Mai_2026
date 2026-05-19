@@ -155,6 +155,7 @@
     <ClCompile Include="StringView.cpp" />
     <ClCompile Include="UniquePtr.cpp" />
     <ClCompile Include="Variant.cpp" />
+    <ClCompile Include="Vector.cpp" />
     <ClCompile Include="WeakPtr.cpp" />
   </ItemGroup>
   <ItemGroup>
