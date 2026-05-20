@@ -18,7 +18,8 @@ extern void main_algorithms();
 extern void main_raii_conceptual_example();
 extern void main_initializer_list();
 extern void main_vector();
-
+extern void main_explicit_keyword();
+extern void main_discard();
 
 int main()
 {
@@ -30,14 +31,16 @@ int main()
     //main_optional();
     //main_lambdas();
     //main_generic_functions();
-    //main_expected();
+   // main_expected();
     // main_casts();
     //main_brace_initialization();
-    //main_auto();
+   // main_auto();
     //main_algorithms();
     //main_raii_conceptual_example();
     //main_initializer_list();
-    main_vector();
+    //main_vector();
+   // main_explicit_keyword();
+    main_discard();
 
     return 0;
 }

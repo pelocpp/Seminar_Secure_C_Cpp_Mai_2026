@@ -193,13 +193,22 @@ namespace StdExpected {
     static void test_excepted_04()
     {
         auto numerator = 10.0;
-        auto denominator = 2.5;
+        auto denominator = 0.0;
 
         // using transform to apply a transformation to the value if it exists
         auto result = divide(numerator, denominator).transform([](auto value) {
             return value + 1;
             }
         );
+
+        result = divide(numerator, denominator).transform([](auto value) {
+            return value + 1;
+            }
+        ).transform([](auto value) {
+            return value + 1;
+            }
+        );
+
 
         // check result
         if (result.has_value()) {
@@ -248,8 +257,8 @@ namespace StdExpected {
     static void test_excepted_05()
     {
         auto numerator = 20.0;
-        // auto denominator = 2.5;         // success
-        auto denominator = 20.0;     // error
+        auto denominator = 2.5;         // success
+        //auto denominator = 20.0;     // error
 
         auto result = divide(numerator, denominator)
             .and_then(addFive)
@@ -269,7 +278,7 @@ namespace StdExpected {
     static void test_excepted_06()
     {
         auto numerator = 20.0;
-        auto denominator = 0.0;
+        auto denominator = 1.0;
 
         // use 'or_else' to handle errors
         auto errorResult = divide(numerator, denominator)
@@ -278,6 +287,8 @@ namespace StdExpected {
             .or_else([](const std::string& error) {
                 std::println("Error occurred: {}", error);
                 return std::expected<double, std::string>(0); // providing a default value
+               // return std::unexpected(std::string{ "Wrong Args" }); // providing a default value
+               // return std::unexpected{ "Error: Division by zero" };
             }
         );
 

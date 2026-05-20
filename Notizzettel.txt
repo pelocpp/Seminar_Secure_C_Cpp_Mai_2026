@@ -23,20 +23,24 @@ https://github.com/pelocpp/Seminar_Secure_C_Cpp_Mai_2026
 // ============================================
 
 Mittwoch + Donnerstag:
+---------------------
 
 Security: Zu Ende // Lösungen
 
-Performanz: Wie sieht Modernes C++ aus ---------- 
+Performanz: Wie sieht Modernes C++ aus
+
+constexpr / Benutzerdefinierte Literale
+
+"The more things you check at compile time the fewer runtime bugs you have"
+
+
+
 
 Multi-Threading
 
 // ============================================
 
-
 ToDo:
-
-Smart Pointer: Arrays  // geht mit und ohne Deleter // Ab C++20 ohne deleter.
-
 
 
 // =======================================================
@@ -433,4 +437,280 @@ Sollte der Vektor "am Ende" in einem End-Zustand: shrink_to_fit:  Die den Speich
 
 
 Neue Kapazität == alte Kapazität * 1.5;
+
+===============================================
+
+Python, JavaScript (TypeScript)
+
+===============================================
+
+RAII
+
+Resource Acquisition Is Initialization
+
+Problem:
+
+Resources:
+
+open(),  SqlConnect, attach(),... new (Smartpointer)
+
+close(), SqlDisconnt, detach(),... delete (Smartpointer)
+
+Fehlende zweite Funktion:
+
+Idee:
+
+C++ ==> OO ==> Objekte ==> Konstruktoren / Destruktoren:
+
+=============================================================================
+
+Wann wir ein Destruktor aufgerufen: Wenn es zerstört wird: Methode wird verlassen (Scope wird verlassen)
+
+===> Achtung: Dieser Aufruf erfolgt DETERMINISTISCH
+
+Idee:
+
+Man verwende die Resources (FILE, Socket, SqlConnection, ...) nicht direkt,
+sondern nur indirekt durch eine Hüllenklasse:
+
+Konstruktor:
+open(),  SqlConnect, Socket, attach(),... new (Smartpointer)
+
+Destruktor:
+close(), SqlDisconnt, Socket, detach(),... delete (Smartpointer)
+
+Beispiel:
+
+=============================================================================
+
+        // prevent copy semantics
+        RAIIClipboard(const RAIIClipboard&) = delete;             // Kopier-Konstruktor
+        RAIIClipboard& operator=(const RAIIClipboard&) = delete;  // Wertzuweisung: a = b;
+
+std::unique_ptr obj;    // XX* ptr;   
+
+obj1 = obj;   // delete ptr; delete ptr;
+
+obj1 = std::move(obj);   // obj ist leer
+
+
+=============================================================================
+
+
+
+             for (..) 
+			 {
+			    Obj obj;   // Wertsemantik
+
+
+			 }  ==> Destruktor  // Deterministisch: Destruktor-Aufruf // Speicher des Objekts wird am Stack freigegeben
+
+			    // SqlConnection:
+				conn.detach();  // Könnte in C++ im Destruktor sich befinden
+
+
+=============================================================================
+
+Yes: Zu C# gibt es hier riesige Unterschiede
+
+a) 
+
+             for (..) 
+			 {
+			    Obj obj = new Obj;   // Referenzsemantik (Objekt liegt NICHT hier, sondern am HEAP)
+
+
+				// SqlConnection:
+				conn.detach();  // MUSS in C# im Ablauf stehen
+
+			 }  obj geht verloren // Objekt ist nicht mehr erreichbar // "Markiert" als nicht mehr erreichbar
+			 
+			 // Zeitverzögert (Stunden) später via GC aufgeräumt.
+
+			 // C#: Keinen direkte Destruktoren-Definition
+			 //     Finalizer (Destruktor), aber halt erst bei der GC
+
+			 ==> Destruktor  // Deterministisch: Destruktor-Aufruf // Speicher des Objekts wird am Stack freigegeben
+
+================================================================
+
+Behandlung von Fehlern:
+
+a) Verwende Exception Handling: Teuer, Laufzeit
+
+   Es spricht nichts dagegen, auf dem oben genannten Gründen es anders zu machen.
+
+b) Return Codes:  
+
+   int function // bool function
+   
+   Das ist alles noch besser als void function
+
+   Aber: Ich muss mich halt um den Rückgabewert kümmern.
+
+
+c1) std::optional:
+
+ std::optional<int>   // implizit:  std::nullopt
+
+
+c2) std::expected (C++ 23)
+
+    Mischung aus std::optional und std:variant<Typ_Gewünscht, Typ_Fehler>  // Typ_Fehler: Zeichenkette: 
+
+
+Siehe auch:
+
+https://github.com/pelocpp/cpp_modern/blob/master/GeneralSnippets/Expected/Expected.md
+
+Monadische API
+
+Auch bei std::optional
+
+
+==============================================================
+
+C-API:
+
+scanf
+
+scanf_s   // secure Varianten verlangen im Regelfall Längenangaben der beteiligten Puffer.
+
+
+===============================================================
+
+Bemerkung:
+
+Macht ein 'void*' überhaupt Sinn ????????????????
+
+Hmmm, man kann auf der Ebene von C damit sog. "generische Programmierung" betreiben:
+
+Eigentlich mit Templates in C++ macht.
+
+Wir "Normalos" sollten davon Abstand nehmen.
+
+===============================================================
+
+C++ Core Guidelines:
+
+Die beschäftigen sich viel mit Kanten und Nischen von C++  (edge cases):
+
+Weniger mit dem "Normal Programming".
+
+====================================================
+
+Vermeide „Off-by-One” Fehler!
+
+for-Schleife: Okay, wir wissen das .........
+
+Versuche ich for-Schleifen zu vermeiden.
+
+Wann geht das:
+
+i)   Daten sind in einem STL-Container
+ii)  std::for_each
+iii) Range-based for-Loop
+
+Habe ich KEINEN Index.
+
+Index wichtig ist:
+
+a) Range-based for-Loop mit Index
+
+    std::vector<int> numbers;
+
+	for ( int i = 0; auto elem : numbers ) {
+	
+	    std::println("{}: {}", i, elem);
+	    ++i;
+	
+	    // geht auch: break; und continue;
+	}
+
+
+b) Dann halt doch die "klassische" for-Schleife
+
+====================================================
+
+Ab C++ 11 (11)
+
+&&    oder and
+||    oder or
+!     oder not
+
+====================================================
+
+Klasse Person
+
+class Employee
+{
+private:
+   // int m_age;  // kennen wir // - 2 Milliarden bis +2 Milliarden
+   
+   Age m_age;     // Werte von 16 bis 70 ...
+   
+   für SEHR wichtige oder sensible Daten ein Tipp sein-
+   
+   ..
+   ..
+   ..
+public:
+   void setAge (int age) {
+   
+       if (age <= 16 ... 
+
+	       Man kann den Wert von m_age schützen !!!
+   }
+};
+
+
+Neue Idee // Modeerscheinung:
+
+Typisierte Elementare Variablen:
+
+class Age
+{
+   private:
+      int m_age; // da ist nach außen NICHT sichtbar ...
+}
+
+====================================================
+
+Funktionalen Programmierung:  Gibt es KEINEN Zustand // keine Instanzvariablen
+
+        bool operator == (const Complex& rhs) const
+        {
+		   // Lesenden Zugriff : 
+
+            return (m_real == rhs.m_real and m_imag == rhs.m_imag);
+        }
+
+Parallisierbar:  Pipelining ...
+
+const
+
+a) Schutz meiner Daten
+
+b) Code-Generierung: PERFORMANZ !!!
+
+===================================
+
+ warning C4834: discarding return value of function with [[nodiscard]] attribute
+
+ ==========================
+
+ Die vollständige Liste der alternativen Operator-KeywordsNeben and, or und not kennt C++ noch folgende Entsprechungen
+ 
+ not_eq statt != (Ungleich)
+ bitand statt & (Bitweises UND)
+ bitor statt | (Bitweises ODER)
+ xor statt ^ (Bitweises Exklusiv-ODER)
+ compl statt ~ (Bitweises Komplement/NOT)
+ and_eq statt &=
+ or_eq statt |=
+ xor_eq statt ^=
+
+
+ 13:45
+ -----
 

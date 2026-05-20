@@ -57,13 +57,13 @@ namespace Auto_Examples {
 
     static void test_03() {
 
-        std::map<int, std::string> anotherMap{ { 1, "Hello"  } };
+        std::map<int, std::string> anotherMap{ { 1, "Hello"  } };  // std::pair: Key, Value
 
         std::map<int, std::string>::iterator it = anotherMap.begin();
 
         // std::pair<int, std::string>& entry1 = *it;  // Why this line DOES NOT compile ???
 
-        auto& entry2 = *it;
+        auto& entry2 = *it;   //  Type Deduction    
     }
 
     // ---------------------------------------------------------------------

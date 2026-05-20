@@ -143,8 +143,11 @@
     <ClCompile Include="Auto.cpp" />
     <ClCompile Include="BraceInitialization.cpp" />
     <ClCompile Include="Casts.cpp" />
+    <ClCompile Include="Clipboard.cpp" />
+    <ClCompile Include="Discard.cpp" />
     <ClCompile Include="Dummy.cpp" />
     <ClCompile Include="Expected.cpp" />
+    <ClCompile Include="Explicit.cpp" />
     <ClCompile Include="GenericFunctions.cpp" />
     <ClCompile Include="InitializerList.cpp" />
     <ClCompile Include="Lambda.cpp" />
