@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{780f04e3-638f-4373-8c2f-8a9c84edadd9}</ProjectGuid>
+    <RootNamespace>PerformanceOptimizationAdvanced</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="CowStringImpl.cpp" />
+    <ClCompile Include="CowString_Test.cpp" />
+    <ClCompile Include="CustomAllocator.cpp" />
+    <ClCompile Include="CustomAllocator_Test.cpp" />
+    <ClCompile Include="FixedArenaController_Test.cpp" />
+    <ClCompile Include="FixedBlockAllocator_New_Delete_Test.cpp" />
+    <ClCompile Include="FixedBlockAllocator_Test.cpp" />
+    <ClCompile Include="FixedBlockMemoryManager_Test.cpp" />
+    <ClCompile Include="Laundry.cpp" />
+    <ClCompile Include="ObjectPool_FixedSize_Test.cpp" />
+    <ClCompile Include="ObjectPool_ThreadSafe_Test.cpp" />
+    <ClCompile Include="ObjectPool_ThreadSafe_Test_02.cpp" />
+    <ClCompile Include="PMR_02.cpp" />
+    <ClCompile Include="PMR_03.cpp" />
+    <ClCompile Include="PMR_04.cpp" />
+    <ClCompile Include="PMR_05.cpp" />
+    <ClCompile Include="PMR_06.cpp" />
+    <ClCompile Include="PMR_07.cpp" />
+    <ClCompile Include="PMR_08.cpp" />
+    <ClCompile Include="PMR_09.cpp" />
+    <ClCompile Include="PMR_DumpBuffer.cpp" />
+    <ClCompile Include="Program.cpp" />
+    <ClCompile Include="ObjectPool_DynamicSize_Test.cpp" />
+    <ClCompile Include="StandardAllocator_Test.cpp" />
+    <ClCompile Include="CowString_TextfileStatistics.cpp" />
+    <ClCompile Include="CowString_TextfileStatisticsImpl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CowString.h" />
+    <ClInclude Include="CustomAllocator.h" />
+    <ClInclude Include="FixedArenaController.h" />
+    <ClInclude Include="FixedBlockAllocator.h" />
+    <ClInclude Include="FixedBlockMemoryManager.h" />
+    <ClInclude Include="ObjectPool_DynamicSize.h" />
+    <ClInclude Include="ObjectPool_FixedSize.h" />
+    <ClInclude Include="ObjectPool_ThreadSafe.h" />
+    <ClInclude Include="ObjectPool_ThreadSafe_02.h" />
+    <ClInclude Include="CowString_TextfileStatistics.h" />
+    <ClInclude Include="PMR_DumpBuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp_arena_01.svg" />
+    <None Include="cpp_arena_02.svg" />
+    <None Include="cpp_arena_03.svg" />
+    <None Include="cpp_arena_04.svg" />
+    <None Include="cpp_arena_05.svg" />
+    <None Include="cpp_copy_on_write_01.svg" />
+    <None Include="cpp_copy_on_write_02.svg" />
+    <None Include="cpp_copy_on_write_03.svg" />
+    <None Include="cpp_copy_on_write_04.svg" />
+    <None Include="cpp_copy_on_write_05.svg" />
+    <None Include="cpp_copy_on_write_06.svg" />
+    <None Include="cpp_fixed_size_object_pool_01.svg" />
+    <None Include="cpp_fixed_size_object_pool_02.svg" />
+    <None Include="cpp_fixed_size_object_pool_03.svg" />
+    <None Include="cpp_fixed_size_object_pool_04.svg" />
+    <None Include="cpp_object_pool_01.svg" />
+    <None Include="cpp_object_pool_02.svg" />
+    <None Include="cpp_object_pool_03.svg" />
+    <None Include="cpp_object_pool_04.svg" />
+    <None Include="cpp_pmr_nested_memory_resources.svg" />
+    <None Include="cpp_pmr_overview.svg" />
+    <None Include="cpp_pmr_pool_resource.svg" />
+    <None Include="Readme_Performance_Optimization_Advanced_Copy_On_Write.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_Laundry.md" />
+    <None Include="Readme_Performance_Optimization_Advanced.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_Custom_Allocator.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_Object_Pool.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_Fixed_Size_Block_Memory_Manager.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_PMR.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_01.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_02.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_03.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_04.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_05.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_06.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_07.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_08.md" />
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_09.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LoremIpsumExtremeHuge.txt" />
+    <Text Include="LoremIpsumHuge.txt" />
+    <Text Include="LoremIpsumLarge.txt" />
+    <Text Include="LoremIpsumSmall.txt" />
+    <Text Include="LoremIpsumVeryHuge.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

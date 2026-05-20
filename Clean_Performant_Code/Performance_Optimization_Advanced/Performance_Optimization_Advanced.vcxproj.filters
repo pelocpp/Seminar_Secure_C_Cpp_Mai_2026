@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ObjectPool_DynamicSize_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Program.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Laundry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomAllocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CustomAllocator_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedArenaController_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedBlockMemoryManager_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedBlockAllocator_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FixedBlockAllocator_New_Delete_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool_ThreadSafe_Test_02.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StandardAllocator_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool_FixedSize_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectPool_ThreadSafe_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CowStringImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CowString_TextfileStatistics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CowString_TextfileStatisticsImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CowString_Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMR_02.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMR_03.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMR_04.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMR_05.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMR_06.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMR_07.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMR_08.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMR_09.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PMR_DumpBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ObjectPool_DynamicSize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CustomAllocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedArenaController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedBlockMemoryManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedBlockAllocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool_ThreadSafe_02.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool_FixedSize.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectPool_ThreadSafe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CowString.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CowString_TextfileStatistics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PMR_DumpBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Readme_Performance_Optimization_Advanced_Laundry.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_Custom_Allocator.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_Object_Pool.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_object_pool_01.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_object_pool_02.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_object_pool_03.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_object_pool_04.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_Fixed_Size_Block_Memory_Manager.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_arena_01.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_arena_02.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_arena_03.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_arena_04.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_arena_05.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_fixed_size_object_pool_01.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_fixed_size_object_pool_02.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_fixed_size_object_pool_03.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_fixed_size_object_pool_04.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_copy_on_write_01.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_copy_on_write_02.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_copy_on_write_03.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_copy_on_write_04.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_copy_on_write_05.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_copy_on_write_06.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_Copy_On_Write.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_PMR.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_01.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_02.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_03.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_04.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_05.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_06.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_07.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_08.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Readme_Performance_Optimization_Advanced_PMR_09.md">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_pmr_nested_memory_resources.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_pmr_overview.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cpp_pmr_pool_resource.svg">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LoremIpsumExtremeHuge.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LoremIpsumHuge.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LoremIpsumLarge.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LoremIpsumSmall.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="LoremIpsumVeryHuge.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
