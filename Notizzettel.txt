@@ -711,6 +711,161 @@ b) Code-Generierung: PERFORMANZ !!!
  xor_eq statt ^=
 
 
- 13:45
- -----
+======================================================================
+
+Welche Optionen habe ich, wenn ich den ganzzahligen Wertebereich verlasse:
+
+2,147,483,647   (32 Bit)
+
+a) double  // Ungenauigkeiten
+
+b) Eine Bibliothek für quasi unendlich große ganze Zahlen.
+
+======================================================================
+
+Eine Bibliothek für quasi unendlich große ganze Zahlen.
+
+Eine Bibliothek für sehr große Zahlen:
+
+int n = 111111111111111111111111111111111111111111111111111111111111111111111111;
+
+BigInt n = "111111111111111111111111111111111111111111111111111111111111111111111111";
+
+Mandelbrot:  
+
+https://de.wikipedia.org/wiki/Mandelbrot-Menge
+
+Schnapper:  Easy-Going Tool.
+
+Sehr große Primzahlen berechnen.
+
+Praxinäheres Beispiel:
+
+Börse Frankfurt:  Software:
+
+int : zu klein ... 64 Bits
+
+double:  hat Ungenauigkeiten.
+
+class Currency 
+{
+    BigInt m_euros;  // Boost
+	short m_cent;   lassen wir cent >= 100 zu ???   Nein.
+}
+
+Bei SW mit monetärem Hintergrund ist EXAKTHEIT wichtig.
+
+Die in C/C++ eingebauten elementaren Datentypen können wir NICHT nehmen.
+
+======================================================================
+
+
+Warum stürzt
+
+void test_01_basic_global_buffer_overflow()
+{
+    std::println("Hello Global Buffer Overflow:");
+
+    std::size_t n{ 22 };
+  //  std::cin >> n;
+    buffer[n] = 123; // Boom!
+}
+
+nicht ab ???
+
+Der Speicher wird in unterschiedlichen Größen / Einheiten verwaltet:
+
+== Cache Line    // Kopie von realem Speicher
+
+== Virtuellen Speicher // Festplatte
+
+   MMU
+
+== Hauptspeicher // Laden tut
+
+== Wird in Einheiten verwaltet: Page // 4.096 Byte  // Hardware - Support : Access Violation
+
+== Innerhalb: Passiert NIX  aus Sicht der CPU
+
+ABER: Ich / wir könnten uns eingene Variablen überschreiben.
+
+
+
+========================================================================
+
+Call-by-Value versus Call-by-Reference bei elementaren Datentypen
+
+void funcTueWas (int n)
+{
+  ...
+}
+
+void funcTueWas (std::string& n)
+{
+  ...
+}
+
+    void funcTueWas1(int n)
+    {
+        int m = n;
+00007FF6F38B89CF  mov         eax,dword ptr [n]  
+00007FF6F38B89D5  mov         dword ptr [m],eax  
+
+versus
+
+    void funcTueWas2(int& n)
+    {
+        int m = n;
+00007FF6F38B8A10  mov         rax,qword ptr [n]  
+00007FF6F38B8A17  mov         eax,dword ptr [rax]  
+00007FF6F38B8A19  mov         dword ptr [m],eax  
+
+Man sieht : Bei Referenzen ist der Code ineffizienter ...
+
+
+ED799
+
+
+ED7A5
+
+=======================================================
+
+Was ist Ausrichtung ???
+Was ist Alignment ???
+
+Jede Variable liegt im Speicher an einer Adresse.
+
+Diese ADresse kann aber NICHT beliebig gewählt werden:
+
+Die Adresse mit ein VIELFACHES der Größe der Variablen sein. <==========
+
+std::uint8_t: JEDE adresse geht // weil 1 Byte im Speicher belegt wird
+short:        2 Bytes  // Adresse muss ein Vielfaches von 2 sein.
+
+Wie lautet die Regel für Objekte ????
+
+Man betrachtet jetzt ALLE Membervariablen des Objekts:
+
+Die Variable mit der GRÖSSTEN Ausrichtung legt die Ausrichtung des Objekts fest.
+
+=====================================================
+
+std::initializer_list  => STACK
+
+std::vector            => HEAP
+
+
+=====================================================
+
+std::map:                
+
+
+
+std::unordered_map
+
+
+
+
+=====================================================
+
 

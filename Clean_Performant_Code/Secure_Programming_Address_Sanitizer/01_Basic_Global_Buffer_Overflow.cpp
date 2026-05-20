@@ -3,6 +3,7 @@
 // ===========================================================================
 
 #include <print>
+#include <iostream>
 
 int buffer[20];
 
@@ -10,7 +11,10 @@ void test_01_basic_global_buffer_overflow()
 {
     std::println("Hello Global Buffer Overflow:");
 
-    std::size_t n{ 20 };
+//    int buffer[20];
+
+    std::size_t n{ 22 };
+
     buffer[n] = 123; // Boom!
 }
 

@@ -101,7 +101,7 @@ namespace InfIntExamples {
 
     static void infint_example_05_faculty() {
 
-        for (std::size_t n{ 2 }; n < 51; ++n)
+        for (std::size_t n{ 2 }; n < 71; ++n)
         {
             std::size_t f{ BigFactorial::factorial<std::size_t>(n) };
             std::println("Faculty of {:2}: {}", n, f);
@@ -110,7 +110,7 @@ namespace InfIntExamples {
 
     static void infint_example_06_faculty() {
 
-        for (std::size_t n{ 2 }; n < 51; ++n)
+        for (std::size_t n{ 2 }; n < 71; ++n)
         {
             InfInt f{ BigFactorial::factorial<InfInt>(n) };
             std::println("Faculty of {:2}: {}", n, f);
@@ -122,13 +122,13 @@ void infint_examples()
 {
     using namespace InfIntExamples;
 
-    infint_example_01();
-    infint_example_02();
-    infint_example_03();
+    //infint_example_01();
+    //infint_example_02();
+    //infint_example_03();
 
-    infint_example_04_faculty();
-    infint_example_05_faculty();
-    infint_example_06_faculty();
+    //infint_example_04_faculty();
+ //  infint_example_05_faculty();
+   infint_example_06_faculty();
 }
 
 // ===========================================================================

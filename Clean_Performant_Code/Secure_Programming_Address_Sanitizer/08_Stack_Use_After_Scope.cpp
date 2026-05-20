@@ -15,8 +15,8 @@ static bool b = true;
 static int test_09_stack_use_after_scope_01() {
 
     if (b) {
-        int x[5] = { };
-        gp = x + 1;
+        int x[5] = { };   // 5 int Variablen
+        gp = x;
     }
 
     return *gp;  // Boom!
@@ -75,10 +75,10 @@ static auto test_09_stack_use_after_scope_03() {
 void test_08_stack_use_after_scope()
 {
     // Example 1 
-   // auto p = test_09_stack_use_after_scope_01();
+   auto p = test_09_stack_use_after_scope_01();
 
     // Example 2 
-    auto l = test_09_stack_use_after_scope_02();
+   // auto l = test_09_stack_use_after_scope_02();
 
     // Example 3
     // test_09_stack_use_after_scope_03();

@@ -2,6 +2,11 @@
 // Secure_Programming_Additional_Material.cpp
 // ===========================================================================
 
+#include <map>
+#include <unordered_map>
+#include <string>
+#include <algorithm>
+
 extern void main_weak_pointer();
 extern void main_variant();
 extern void main_unique_ptr();
@@ -21,6 +26,29 @@ extern void main_vector();
 extern void main_explicit_keyword();
 extern void main_discard();
 
+void map_vs_unordered_map()
+{
+    std::map<std::string, int> aMap;                     // _Tree //  ordered red-black tree of {key, mapped} values, unique keys
+
+    std::unordered_map<std::string, int> aUnorderedMap;  // hash table of {key, mapped} values, unique keys
+
+  // Wenn überhaupt: Wo suchen wir ... std::find
+
+   // BEIDE Container sind ASSOZIATIV-Container:
+
+    int key = aMap["Hans"];   // tel. Nr.    // Links, Rechts Suche .....
+
+   //  std::find(aMap.begin(), aMap.end(), 123);
+
+    int key2 = aUnorderedMap["Hans"];   // tel. Nr.   // Der Index // der Knoten wird BERECHNET !!!!
+
+    // Normalfall: Go for  std::unordered_map
+
+    // Wann map: Die ist SORTIERT
+
+}
+
+
 int main()
 {
     //main_weak_pointer();
@@ -37,10 +65,10 @@ int main()
    // main_auto();
     //main_algorithms();
     //main_raii_conceptual_example();
-    //main_initializer_list();
+    main_initializer_list();
     //main_vector();
    // main_explicit_keyword();
-    main_discard();
+    //main_discard();
 
     return 0;
 }

@@ -11,13 +11,13 @@
 namespace SafeArithmetic {
 
     // sum the 16-bit signed integers stored in the values vector
-    static int16_t sum(const std::vector<int16_t>& values)
+    static std::int16_t sum(const std::vector<int16_t>& values)
     {
         int16_t result{};
 
         for (auto num : values)
         {
-            result += num;
+            result += num;   // Hmmm, könnte zu einem Überlauf führen ...
         }
 
         return result;
@@ -165,14 +165,14 @@ namespace SafeFaculty {
 void safe_code_arithmetic()
 {
     using namespace SafeArithmetic;
-    test_maximum_int16_t();
-    test_sum_unsave();
-    test_sum_safe_hand_written();   // crashes
-    test_sum_safe();                // crashes
-    test_sum_more_safe();
+  //  test_maximum_int16_t();
+    //test_sum_unsave();
+    //test_sum_safe_hand_written();   // crashes
+    //test_sum_safe();                // crashes
+  //  test_sum_more_safe();
 
     using namespace SafeFaculty;
-    test_factorial_unsafe();
+    //test_factorial_unsafe();
     test_factorial_safe();
 }
 
