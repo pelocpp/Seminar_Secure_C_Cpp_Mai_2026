@@ -11,7 +11,7 @@
 namespace InitializerList {
 
     // function using std::initializer_list
-    static int adder (std::vector<int>& list)
+    static int adder (std::initializer_list<int> list)
     {
         int result{};
 

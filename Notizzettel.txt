@@ -42,8 +42,28 @@ Multi-Threading
 
 ToDo:
 
+== Was hat es mit dem Weg-Speichern von Future-Objekten auf sich ???
+   std::latch
+
+   (20 Min)
+
+== std::packaged_task (15 Min)
+
+== Semaphore (20 Min)
+
+== Thread-Pool  (1:30)  // All-In
+
 
 // =======================================================
+
+Bei wenigen Threads:   "Egal" ...
+
+std::thread:          std::promise / std::future => Datenkanal
+
+std::async ==> Thread Pool
+
+// =======================================================
+
 
 
 ===> Wohin soll die Reise gehen?
@@ -859,13 +879,251 @@ std::vector            => HEAP
 
 std::map:                
 
-
-
 std::unordered_map
-
-
-
 
 =====================================================
 
+Gibt es einen dynamischen Container, 
+der nicht auf dem Heap liegt ?????????????
 
+PMR - Polymorphe Allokatoren
+
+https://github.com/pelocpp/cpp_clean_performant_secure/blob/master/Clean_Performant_Code/Performance_Optimization_Advanced/Readme_Performance_Optimization_Advanced_PMR.md
+
+===================================================
+
+Programmierung zur Übersetzungszeit mit constexpr
+
+Compiler
+
+CLang:  constexpr - Interpreter
+
+a) #define 
+
+b) Makros 
+
+
+=================================================================
+=================================================================
+
+Resources des unterlagerten OS werden benötigt:
+
+CreateThread:  Handle
+
+CloseHandle : Wann
+
+===================================================================
+
+std::thread oder std::async
+
+a) std::thread: CreateThread
+
+   Historisch: 1 Umsetzung des Threading-Konzepts.
+
+   Kernel-Funktion:  Vergleichsweise "langsam"
+
+   ==> Web-Server:  Incoming-Requests (HTTP) : VIELE Requests
+
+   CreateThread: Zu langsam !!!
+
+b) Thread Pools:
+
+  zB  QueueUserWorkItem function
+
+
+
+  Und C++ ???? a) oder b)
+
+  Go for std::async: Thread Pool
+
+===========================================================
+
+2 Threads:   Globalen Variablen // gemeinsamen Daten
+  
+==> Problemen ....
+
+Lösungen:
+
+2 Lösungen
+
+a) Klasse Atomic:
+
+int Variable: counter
+
+a) Wird auf 0 vorbelegt
+
+b) Zähle counter 1000 Mal hoch (counter ++)  // Thread 1
+
+c) Zähle counter 1000 Mal runter (counter --)  // Thread 2
+
+d) Welcher Wert steht in counter ???
+
+
+b) Mutex-Objekt
+
+===========================================================
+
+                ++m_counter;
+
+00007FF605D72C33  mov         rax,qword ptr [this]  
+00007FF605D72C3A  mov         eax,dword ptr [rax]  
+
+00007FF605D72C3C  inc         eax     // 100
+
+===> Thread Wechsel <====
+
+00007FF605D72C3E  mov         rcx,qword ptr [this]  
+00007FF605D72C45  mov         dword ptr [rcx],eax  
+
+Lösung: Diese 5 OpCodes dürfen nicht unterbrochen werden 
+
+Wie kann man hier einen Thread Wechsel verbieten: Interrupt-Sperre !!
+
+Multi-Core Rechner: DIESELBE m_counter:  Bus-Sperre
+
+
+Welchen Stack verwendet ein Thread?
+
+Jeder Thread hat einen EIGENEN, EXKLUSIVEN Stack.
+
+Was passiert (allgemein) mit den aktuellen Registern ???
+
+Bleiben erhalten ?? Wie ?? Auf dem Stack des noch aktuellen Threads
+
+// andere Thread ...................... 100, 99, 89 ...
+
+Wenn ich den unterbrochenen Thread wieder aktiviere:
+
+Was passiert dann mit zB EAX: Auf das wird wieder zugegriffen ... mit den aufgehobenen Werten:
+
+Beispiel: EAX: 100 
+
+ANDERE Thread: 89 runtergezählt: Damit wird 89 quasi kaputt gemacht // geht verloren // 
+
+=================================================================
+
+Konkurrenz:  Zugriff auf GEMEINSAME Daten.
+
+  Probleme erkannt und behoben ....
+
+Wunsch:
+
+  Ein Thread berechnet etwas .... etwas, was ein anderer Thread haben möchte.
+
+Kooperation:
+
+std::condition_variable:
+
+wait   ... notify
+
+Bild:   std::mutex
+
+
+======================================================================
+
+std::latch:   Riegel  
+
+Countdown - Zähler
+
+======================================================================
+
+Semaphore:   Signal
+
+release ();  Semaphore ist jetzt freigegeben ....
+
+acquire ();  Will das Semaphore belegen:  BLOCKIEREN
+
+Binäre Semaphore:
+
+std::counting_semaphore: Kann zB. mit dem Wert 5 vorbelegt werden:
+
+acquire ();  (5  => 4)
+acquire ();  (4  => 3)
+release(): 3 => 4
+acquire ();  (4  => 3)
+acquire ();  (3  => 2)
+acquire ();  (2  => 1)
+acquire ();  (1  => 0)
+
+acquire ();  WARTEN          
+
+
+======================================================================
+
+Generell gilt für die GESAMTE STL:
+
+Deren Funktionen / Objekte kennen EINEN Prozess.
+
+Ein C++ Semaphore kann nur in EINEM Prozess verwendet werden !!!
+
+======================================================================
+======================================================================
+
+
+Thread-Pool:
+
+--
+
+std::function
+std::move_only_function   //  C++ 23
+std::copyable_function    //  C++ 26
+
+
+Wer ist std::function:  
+
+Class template std::function is a general-purpose polymorphic function wrapper,
+zB für Lambdas.
+
+auto l = [] ..
+
+std::vector<auto>  NO
+
+std::vector<std::function>
+
+--
+
+
+Wozu jetzt std::packaged_task:   Sehr ähnlich zu std::function:
+
+  ==> Datenkanal via std::future
+
+
+
+Capture Clause:
+
+[]
+[=]   Kopie
+[&]   Per Referenz
+
+[???]    Verschieben  ???
+
+
+
+// ============================================================
+
+1 * Start
+
+X * mal AddTask ();   // Wenn die bearbeitet worden ist: Dann gibt es die nicht mehr.
+
+... 
+
+X Future-Objekte: Mit deren Hilfe weißt du, wann die X Tasks fertig sind  // std::latch
+
+NICHT: Stop nicht notwendig // Pool ist leer  // damit auch kein 2. Start notwendig
+
+X * mal AddTask ();
+
+...
+
+X Future-Objekte: Mit deren Hilfe weißt du, wann die X Tasks fertig sind // std::latch
+
+
+// ============================================================
+
+std::thread  t;   // neu:   Schlechteste Lösung
+
+A) std::future = std::async : NEU  // ABER: Es werden EXISTIERENDE Threads verwendet !!!!
+
+oder
+
+B) Thread Pool:   // 

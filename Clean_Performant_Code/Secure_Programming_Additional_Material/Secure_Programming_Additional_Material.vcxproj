@@ -144,6 +144,8 @@
     <ClCompile Include="BraceInitialization.cpp" />
     <ClCompile Include="Casts.cpp" />
     <ClCompile Include="Clipboard.cpp" />
+    <ClCompile Include="ConstExpr.cpp" />
+    <ClCompile Include="ConstExpr_CRC.cpp" />
     <ClCompile Include="Discard.cpp" />
     <ClCompile Include="Dummy.cpp" />
     <ClCompile Include="Expected.cpp" />

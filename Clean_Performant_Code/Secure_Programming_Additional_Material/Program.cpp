@@ -25,6 +25,8 @@ extern void main_initializer_list();
 extern void main_vector();
 extern void main_explicit_keyword();
 extern void main_discard();
+extern void main_constexpr();
+extern void test_exercises_constexpr();
 
 void map_vs_unordered_map()
 {
@@ -65,10 +67,12 @@ int main()
    // main_auto();
     //main_algorithms();
     //main_raii_conceptual_example();
-    main_initializer_list();
+    //main_initializer_list();
     //main_vector();
    // main_explicit_keyword();
     //main_discard();
+    main_constexpr();
+    test_exercises_constexpr();
 
     return 0;
 }
